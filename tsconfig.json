@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "types": ["node"],
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@libs/database": ["libs/database/src"],
+      "@libs/database/*": ["libs/database/src/*"],
+      "@libs/admin-guard": ["libs/admin-guard/src"],
+      "@libs/admin-guard/*": ["libs/admin-guard/src/*"],
+      "@libs/google-events": ["libs/google-events/src"],
+      "@libs/google-events/*": ["libs/google-events/src/*"],
+      "@libs/google-captcha": ["libs/google-captcha/src"],
+      "@libs/google-captcha/*": ["libs/google-captcha/src/*"],
+      "@libs/aitu": ["libs/aitu/src"],
+      "@libs/aitu/*": ["libs/aitu/src/*"],
+      "@libs/ncanode": ["libs/ncanode/src"],
+      "@libs/ncanode/*": ["libs/ncanode/src/*"],
+      "@libs/frontier-scoring": ["libs/frontier-scoring/src"],
+      "@libs/frontier-scoring/*": ["libs/frontier-scoring/src/*"],
+      "@libs/paybox": ["libs/paybox/src"],
+      "@libs/paybox/*": ["libs/paybox/src/*"],
+      "@lib/lombard-scoring": ["libs/lombard-scoring/src"],
+      "@lib/lombard-scoring/*": ["libs/lombard-scoring/src/*"],
+      "@lib/smartlombard-api": ["libs/smartlombard-api/src"],
+      "@lib/smartlombard-api/*": ["libs/smartlombard-api/src/*"],
+      "@lib/order-creation/*": ["libs/order-creation/src/*"],
+      "@lib/biometric": ["libs/biometric/src"],
+      "@lib/biometric/*": ["libs/biometric/src/*"],
+      "@lib/apple-icloud-common/*": ["libs/apple-icloud-common/src/*"],
+      "@lib/chat-gpt-api/*": ["libs/chat-gpt-api/src/*"],
+      "@lib/intellectdialog-rest-api/*": [
+        "libs/intellectdialog-rest-api/src/*"
+      ],
+      "@lib/alo-alo-shop-rest-api/*": ["libs/alo-alo-shop-rest-api/src/*"]
+    }
+  }
+}
