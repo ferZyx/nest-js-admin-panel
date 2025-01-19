@@ -20,7 +20,7 @@ export class PermissionsFieldDto {
 }
 
 export class PermissionsResponseDto {
-  @ApiProperty({ example: PermissionGroups.USERS })
+  @ApiProperty({ example: PermissionGroups.PRODUCTS })
   @Expose()
   name: string;
 

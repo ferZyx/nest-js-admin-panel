@@ -23,9 +23,7 @@ import { ProductsService } from './products.service';
 import { ProductDto } from './dto/responses/product.dto';
 import { CreateProductDto } from './dto/requests/create-product.dto';
 import { UpdateProductDto } from './dto/requests/update-product.dto';
-import { UserPaginateQueryDto } from 'src/admin-users/dto/user-paginate-query.dto';
-import { CurrentUser } from 'libs/decorator/current-user.decorator';
-import { AdminUserTokenPayload } from 'src/auth/dto/admin-user-token-payload.dto';
+import { ProductPaginateQueryDto } from './dto/product-paginate-query.dto';
 @Controller('products')
 @ApiTags('products')
 @ApiBearerAuth()
@@ -36,50 +34,45 @@ export class ProductsController {
   @Get()
   @ApiPaginated(ProductDto)
   @Permission(PermissionsEnum.GET_PRODUCTS)
-  async getUsers(
-    @Query() query: UserPaginateQueryDto,
-    @CurrentUser() adminUser: AdminUserTokenPayload,
-  ) {
-    return adminUser.is_admin
-      ? this.productsService.getUsers(query)
-      : this.productsService.getUsers(query, adminUser._id);
+  async getProducts(@Query() query: ProductPaginateQueryDto) {
+    return this.productsService.getProducts(query);
   }
 
   @Post('/many')
   @ApiPaginated(ProductDto)
   @Permission(PermissionsEnum.CREATE_PRODUCT)
-  async createManyUsers(@Body() createUserDto: CreateProductDto[]) {
-    return this.productsService.createMany(createUserDto);
+  async createManyProducts(@Body() createProductDto: CreateProductDto[]) {
+    return this.productsService.createMany(createProductDto);
   }
 
   @Post()
   @Lean(ProductDto)
   @Permission(PermissionsEnum.CREATE_PRODUCT)
-  createUser(@Body() createUserDto: CreateProductDto) {
-    return this.productsService.create(createUserDto);
+  createProduct(@Body() createProductDto: CreateProductDto) {
+    return this.productsService.create(createProductDto);
   }
 
   @Put(':id')
   @Lean(ProductDto)
   @Permission(PermissionsEnum.UPDATE_PRODUCT)
   @ApiParam({ type: String, name: 'id' })
-  updateUser(
+  updateProduct(
     @Param('id') productId: string,
-    @Body() updateUserDto: UpdateProductDto,
+    @Body() updateProductDto: UpdateProductDto,
   ) {
-    return this.productsService.update(productId, updateUserDto);
+    return this.productsService.update(productId, updateProductDto);
   }
 
   @Delete(':id')
   @Permission(PermissionsEnum.DELETE_PRODUCT)
   @ApiParam({ type: String, name: 'id' })
-  async deleteUser(@Param('id') productId: string) {
+  async deleteProduct(@Param('id') productId: string) {
     await this.productsService.delete(productId);
   }
 
   @Post('/recover/:id')
   @Permission(PermissionsEnum.RECOVER_PRODUCT)
-  async recoverAdminUser(@Param('id') productId: string) {
-    await this.productsService.recoverUser(productId);
+  async recoverAdminProduct(@Param('id') productId: string) {
+    await this.productsService.recoverProduct(productId);
   }
 }

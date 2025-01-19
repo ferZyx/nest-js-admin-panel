@@ -34,7 +34,6 @@ export type ProductsDocument = HydratedDocument<
 export const ProductsSchema = SchemaFactory.createForClass(ProductsSchemaClass);
 
 export interface IProductsVirtuals {
-  age: string;
   filial: FilialsSchemaClass;
 }
 

@@ -15,6 +15,8 @@ import {
   RolesDbModel,
   RolesSchemaClass,
 } from '@libs/database/schemas/roles/roles.schema';
+import { AdminUsersService } from '../admin-users/admin-users.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PermissionsService implements OnApplicationBootstrap {
@@ -23,6 +25,9 @@ export class PermissionsService implements OnApplicationBootstrap {
     private readonly adminUsers: AdminUsersDbModel,
     @Inject(RolesSchemaClass.name)
     private readonly roles: RolesDbModel,
+
+    private configService: ConfigService,
+    private adminUsersService: AdminUsersService,
   ) {}
   async onApplicationBootstrap() {
     let admin = await this.adminUsers
@@ -31,12 +36,16 @@ export class PermissionsService implements OnApplicationBootstrap {
       .exec();
 
     if (!admin) {
+      const password = await this.adminUsersService.hashPassword(
+        this.configService.get<string>('DEFAULT_ADMIN_PASSOWRD') ??
+          'adminadmin',
+      );
+
       admin = await this.adminUsers.create({
         name: 'Admin',
         username: 'SUPERADMIN',
-        // FIXME: пароль не хешируется
-        password: 'SUPERADMINSUPERADMIN!',
         is_admin: true,
+        password,
       });
     }
 

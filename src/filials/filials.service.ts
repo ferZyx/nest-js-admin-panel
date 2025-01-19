@@ -7,12 +7,19 @@ import {
   FilialsDbModel,
   FilialsSchemaClass,
 } from '@libs/database/schemas/filials/filials.schema';
+import {
+  ProductsDbModel,
+  ProductsSchemaClass,
+} from '@libs/database/schemas/products/products.schema';
 
 @Injectable()
 export class FilialsService {
   constructor(
     @Inject(FilialsSchemaClass.name)
     private readonly filials: FilialsDbModel,
+
+    @Inject(ProductsSchemaClass.name)
+    private readonly products: ProductsDbModel,
   ) {}
 
   async getFilial(filialId: Types.ObjectId) {
@@ -27,7 +34,7 @@ export class FilialsService {
     }
     const filials = await this.filials.paginate(
       { ...query },
-      { limit, page, sort, populate: 'adminUser members filialGrade' },
+      { limit, page, sort },
     );
 
     return filials;
@@ -51,14 +58,13 @@ export class FilialsService {
   }
 
   async delete(filialId: Types.ObjectId) {
-    const isFilialUsersExists = await this.filials.exists({
-      _id: filialId,
-      users: { $exists: true, $not: { $size: 0 } },
+    const isFilialProductsExists = await this.products.exists({
+      filialId: filialId,
     });
 
-    if (isFilialUsersExists) {
+    if (isFilialProductsExists) {
       throw new ForbiddenException(
-        'Эту группу нельзя удалить, так как она все еще содержит в себе пользователей',
+        'Этот филиал нельзя удалить, так как к нему привязаны товары. Удалите сначала их.',
       );
     }
 

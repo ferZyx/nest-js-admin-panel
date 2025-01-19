@@ -27,7 +27,7 @@ import { PermissionsEnum } from '../permissions/permissions.enum';
 import { MessageResponseDto } from 'libs/dto/message.response.dto';
 import { CurrentUser } from 'libs/decorator/current-user.decorator';
 import { AdminUserTokenPayload } from '../auth/dto/admin-user-token-payload.dto';
-import { UserPaginateQueryDto } from './dto/user-paginate-query.dto';
+import { AdminUserPaginateQueryDto } from './dto/admin-user-paginate-query.dto';
 
 @Controller('admin-users')
 @ApiTags('admin-users')
@@ -40,7 +40,7 @@ export class AdminUsersController {
   @ApiPaginated(AdminUserResponseDto)
   @Permission(PermissionsEnum.GET_ADMIN_USERS)
   async getAdminUsers(
-    @Query() query: UserPaginateQueryDto,
+    @Query() query: AdminUserPaginateQueryDto,
     @CurrentUser() adminUser: AdminUserTokenPayload,
   ) {
     return adminUser.is_admin

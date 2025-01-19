@@ -9,7 +9,7 @@ import {
   AdminUserSchemaClass,
   AdminUsersDbModel,
 } from '@libs/database/schemas/admin-users/admin-users.schema';
-import { UserPaginateQueryDto } from './dto/user-paginate-query.dto';
+import { AdminUserPaginateQueryDto } from './dto/admin-user-paginate-query.dto';
 import { isNotEmpty } from 'class-validator';
 
 @Injectable()
@@ -136,7 +136,7 @@ export class AdminUsersService {
   }
 
   getAdminUsers(
-    { searchText, limit, page, sort, isDeleted }: UserPaginateQueryDto,
+    { searchText, limit, page, sort, isDeleted }: AdminUserPaginateQueryDto,
     currentUserId: string | undefined = undefined,
   ) {
     let query: FilterQuery<AdminUserSchemaClass> = {};

@@ -53,11 +53,6 @@ export class AdminUserSchemaClass extends BaseSchema {
     type: [SchemaTypes.ObjectId],
   })
   parentIds: Types.ObjectId[];
-
-  @Prop({
-    type: [SchemaTypes.ObjectId],
-  })
-  groupIds: Types.ObjectId[];
 }
 
 export interface IAdminUsersVirtuals {
